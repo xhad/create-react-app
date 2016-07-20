@@ -49,8 +49,8 @@ var argv = require('minimist')(process.argv.slice(2));
  *   --scripts-version <alternative package>
  *     Example of valid values:
  *     - a specific npm version: "0.22.0-rc1"
- *     - a .tgz archive from any npm repo: "https://registry.npmjs.org/react-scripts/-/react-scripts-0.20.0.tgz"
- *     - a package prepared with `npm pack`: "/Users/home/vjeux/create-react-app/react-scripts-0.22.0.tgz"
+ *     - a .tgz archive from any npm repo: "https://registry.npmjs.org/react-elmish-example/-/react-elmish-example-0.20.0.tgz"
+ *     - a package prepared with `npm pack`: "/Users/home/vjeux/create-react-app/react-elmish-example-0.22.0.tgz"
  */
 var commands = argv._;
 if (commands.length === 0) {
@@ -92,7 +92,7 @@ function createApp(name, verbose, version) {
   process.chdir(root);
 
   console.log('Installing packages. This might take a couple minutes. ⌛');
-  console.log('Installing react-scripts from npm...');
+  console.log('Installing react-elmish-example from npm...');
 
   run(root, appName, version, verbose);
 }
@@ -115,7 +115,7 @@ function run(root, appName, version, verbose) {
     var scriptsPath = path.resolve(
       process.cwd(),
       'node_modules',
-      'react-scripts',
+      'react-elmish-example',
       'scripts',
       'init.js'
     );
@@ -125,7 +125,7 @@ function run(root, appName, version, verbose) {
 }
 
 function getInstallPackage(version) {
-  var packageToInstall = 'react-scripts';
+  var packageToInstall = 'react-elmish-example';
   var validSemver = semver.valid(version);
   if (validSemver) {
     packageToInstall += '@' + validSemver;
@@ -140,7 +140,7 @@ function checkNodeVersion() {
   var packageJsonPath = path.resolve(
     process.cwd(),
     'node_modules',
-    'react-scripts',
+    'react-elmish-example',
     'package.json'
   );
   var packageJson = require(packageJsonPath);

@@ -79,8 +79,8 @@ prompt('Are you sure you want to eject? This action is permanent. [y/N]', functi
   var selfPackage = require(path.join(selfPath, 'package.json'));
   var hostPackage = require(path.join(hostPath, 'package.json'));
 
-  console.log('Removing dependency: react-scripts');
-  delete hostPackage.devDependencies['react-scripts'];
+  console.log('Removing dependency: react-elmish-example');
+  delete hostPackage.devDependencies['react-elmish-example'];
 
   Object.keys(selfPackage.dependencies).forEach(function (key) {
    console.log('Adding dependency: ' + key);
