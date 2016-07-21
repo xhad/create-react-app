@@ -1,6 +1,6 @@
 {
   "name": "react-elmish-example",
-  "version": "0.3.0-alpha",
+  "version": "0.4.0-alpha",
   "license": "BSD-3-Clause",
   "scripts": {
     "start": "node scripts/start.js --debug-template",
@@ -53,6 +53,9 @@
     "bundle-deps": "^1.0.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "1.0.14"
   },
   "bundledDependencies": [
     "autoprefixer",

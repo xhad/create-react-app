@@ -30,12 +30,19 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1;
 fi
 
-# This modifies package.json
-# We will revert this after release
-node ./node_modules/.bin/bundle-deps
-
 # Force dedupe
 npm dedupe
+
+# Don't bundle fsevents because it is optional and OS X-only
+# Since it's in optionalDependencies, it will attempt install outside bundle
+rm -rf node_modules/fsevents
+
+# This modifies package.json to copy all dependencies to bundledDependencies
+# We will revert package.json back after release to avoid doing it every time
+node ./node_modules/.bin/bundle-deps
+
+# Go!
+npm publish --tag bundle-opt
 
 # Discard changes to package.json
 git checkout -- .
