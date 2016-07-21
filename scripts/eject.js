@@ -36,9 +36,9 @@ prompt('Are you sure you want to eject? This action is permanent. [y/N]', functi
 
   console.log('Ejecting...');
   console.log();
+
   var selfPath = path.join(__dirname, '..');
   var hostPath = path.join(selfPath, '..', '..');
-
   var files = [
     path.join('config', 'babel.dev.js'),
     path.join('config', 'babel.prod.js'),
@@ -70,10 +70,9 @@ prompt('Are you sure you want to eject? This action is permanent. [y/N]', functi
    console.log('Copying ' + file + ' to ' + hostPath);
    var content = fs.readFileSync(path.join(selfPath, file), 'utf8');
    // Remove license header
-   content = content.replace(/\/\*[\s\S]+\*\//, '').trim() + '\n';
+   content = content.replace(/^\/\*\*(\*(?!\/)|[^*])*\*\//, '').trim() + '\n';
    fs.writeFileSync(path.join(hostPath, file), content);
   });
-
   console.log();
 
   var selfPackage = require(path.join(selfPath, 'package.json'));
@@ -109,5 +108,4 @@ prompt('Are you sure you want to eject? This action is permanent. [y/N]', functi
   console.log('Please consider sharing why you ejected in this survey:');
   console.log('  http://goo.gl/forms/Bi6CZjk1EqsdelXk1');
   console.log();
-
 });

@@ -26,8 +26,7 @@ module.exports = function(hostPath, appName, verbose) {
   // Setup the script rules
   hostPackage.scripts = {};
   ['start', 'build', 'eject'].forEach(function(command) {
-    hostPackage.scripts[command] =
-      command + '-react-app';
+    hostPackage.scripts[command] = 'react-scripts ' + command;
   });
 
   fs.writeFileSync(
@@ -40,13 +39,21 @@ module.exports = function(hostPath, appName, verbose) {
     return fs.writeFileSync(dest, fs.readFileSync(src));
   }
   fs.mkdirSync(path.join(hostPath, 'src'));
-  fs.readdirSync(path.join(selfPath, 'src')).forEach(function(filename) {
+  fs.readdirSync(path.join(selfPath, 'template/src')).forEach(function(filename) {
     copySync(
-      path.join(selfPath, 'src', filename),
+      path.join(selfPath, 'template/src', filename),
       path.join(hostPath, 'src', filename)
     );
   });
-  copySync(path.join(selfPath, 'index.html'), path.join(hostPath, 'index.html'));
+  fs.readdirSync(path.join(selfPath, 'template')).forEach(function(filename) {
+    if (fs.lstatSync(path.join(selfPath, 'template', filename)).isDirectory()) {
+      return
+    }
+    copySync(
+      path.join(selfPath, 'template', filename),
+      path.join(hostPath, filename)
+    );
+  });
 
   // Run another npm install for react and react-dom
   console.log('Installing react and react-dom from npm...');
